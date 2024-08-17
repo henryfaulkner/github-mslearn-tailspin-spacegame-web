@@ -1,3 +1,59 @@
-pool: MyAgentPool
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfig: "Release"
+  dotnetVersion: "6.x"
+  wwwrootLocation: "Tailspin.SpaceGame.Web/wwwroot"
+
 steps:
-- bash: echo hello world
+  - task: UseDotNet@2
+    displayName: "Use .NET SDK $(dotnetVersion)"
+    inputs:
+      packageType: sdk
+      version: "$(dotnetVersion)"
+
+  - task: Npm@1
+    displayName: "Install Node Modules"
+    inputs:
+      command: "install"
+
+  - script: "./node_modules/.bin/node-sass $(wwwrootLocation) --output $(wwwrootLocation)"
+    displayName: "Compile Sass assets"
+
+  - task: gulp@0
+    displayName: "Run Gulp Tasks"
+    inputs:
+      gulpFile: "gulpfile.js"
+      targets:
+      gulpjs: "node_modules/gulp/bin/gulp.js"
+      enableCodeCoverage: false
+
+  - script: echo 'date'
+    displayName: "Write date"
+    workingDirectory: $(wwwrootDir)
+
+  - task: DotNetCoreCLI@2
+    displayName: "Restore Nuget libraries"
+    inputs:
+      command: "restore"
+      feedsToUse: "select"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Build Solution"
+    inputs:
+      command: "build"
+      arguments: "--configuration $(buildConfig)"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Publish .NET Build"
+    inputs:
+      command: "publish"
+      projects: "**/*.csproj"
+      publishWebProjects: false
+      arguments: "--no-build --configuration $(buildConfig) --output $(Build.ArtifactStagingDirectory)/Release"
+      zipAfterPublish: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Build Artifact"
+    condition: succeeded()
