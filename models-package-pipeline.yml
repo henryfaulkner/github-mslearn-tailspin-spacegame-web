@@ -23,7 +23,7 @@ steps:
     displayName: "Build the project - $(buildConfiguration)"
     inputs:
       command: "build"
-      arguments: "--no-restore --configuration $(buildConfiguration)"
+      arguments: "--configuration $(buildConfiguration)"
       projects: "Tailspin.SpaceGame.Web.Models/Tailspin.SpaceGame.Web.Models.csproj"
 
   - task: DotNetCoreCLI@2
