@@ -1,4 +1,4 @@
-﻿namespace TailSpin.SpaceGame.Web.Models
+﻿namespace TailSpin.SpaceGame.Web.Models.Models
 {
     public class ProfileViewModel
     {

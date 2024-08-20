@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace TailSpin.SpaceGame.Web.Models
+namespace TailSpin.SpaceGame.Web.Models.Models
 {
     /// <summary>
     /// Base class for data models.
