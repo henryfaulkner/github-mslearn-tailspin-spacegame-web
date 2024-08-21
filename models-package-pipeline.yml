@@ -23,7 +23,7 @@ steps:
     displayName: "Build the project - $(buildConfiguration)"
     inputs:
       command: "build"
-      arguments: "--no-restore --configuration $(buildConfiguration)"
+      arguments: "--configuration $(buildConfiguration)"
       projects: "Tailspin.SpaceGame.Web.Models/Tailspin.SpaceGame.Web.Models.csproj"
 
   - task: DotNetCoreCLI@2
@@ -34,7 +34,7 @@ steps:
       arguments: "--no-build --configuration $(buildConfiguration)"
       versioningScheme: byPrereleaseNumber
       majorVersion: "1"
-      minorVersion: "0"
+      minorVersion: "1"
       patchVersion: "0"
 
   - task: NuGetCommand@2
