@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit;
-using TailSpin.SpaceGame.Web.Models.Models;
+using TailSpin.SpaceGame.Web.Models;
 using TailSpin.SpaceGame.Web;
 using System.Linq.Expressions;
 
