@@ -1,5 +1,9 @@
 [![Build Status](https://dev.azure.com/henryfaulkner/GitHub%20-%20Space%20Game/_apis/build/status%2Fhenryfaulkner.github-mslearn-tailspin-spacegame-web?branchName=main)](https://dev.azure.com/henryfaulkner/GitHub%20-%20Space%20Game/_build/latest?definitionId=26&branchName=main)
 
+az deployment gr
+oup create --name TailspinMultiStageDeployment --resource-group tailspin-multistage-rg --
+template-file ./multistage-webapp.bicep
+
 # Contributing
 
 This project welcomes contributions and suggestions. Most contributions require you to agree to a

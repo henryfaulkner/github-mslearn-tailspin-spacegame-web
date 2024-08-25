@@ -1,7 +1,9 @@
-trigger: none
+trigger:
+  - "*"
 
 variables:
   buildConfiguration: "Release"
+  releaseBranchName: "main"
 
 stages:
   - stage: "Build"
@@ -64,9 +66,15 @@ stages:
           - publish: "$(Build.ArtifactStagingDirectory)"
             artifact: drop
 
-  - stage: "Deploy"
-    displayName: "Deploy the web application"
+  - stage: "Dev"
+    displayName: "Deploy to the dev environment"
     dependsOn: Build
+    condition: |
+      and
+      (
+        succeeded(),
+        eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])
+      )
     jobs:
       - deployment: Deploy
         pool:
@@ -83,6 +91,6 @@ stages:
                 - task: AzureWebApp@1
                   displayName: "Azure App Service Deploy: website"
                   inputs:
-                    azureSubscription: "TailSpin_SC"
+                    azureSubscription: "TailSpin_MultiStage_SC"
                     appName: "$(WebAppNameDev)"
                     package: "$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip"
