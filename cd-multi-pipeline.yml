@@ -115,7 +115,7 @@ stages:
                 - task: AzureWebApp@1
                   displayName: "Azure App Service Deploy: website"
                   inputs:
-                    azureSubscription: "TailSpin_SC"
+                    azureSubscription: "TailSpin_MultiStage_SC"
                     appName: "$(WebAppNameTest)"
                     package: "$(Pipeline.Workspace)/drop/$(buildConfiguration)/Tailspin.SpaceGame.Web.zip"
 
@@ -138,6 +138,6 @@ stages:
                 - task: AzureWebApp@1
                   displayName: "Azure App Service Deploy: website"
                   inputs:
-                    azureSubscription: "TailSpin_SC"
+                    azureSubscription: "TailSpin_MultiStage_SC"
                     appName: "$(WebAppNameStaging)"
                     package: "$(Pipeline.Workspace)/drop/$(buildConfiguration)/Tailspin.SpaceGame.Web.zip"
